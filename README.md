@@ -1,0 +1,2 @@
+# docker-oskari
+oskari docker
