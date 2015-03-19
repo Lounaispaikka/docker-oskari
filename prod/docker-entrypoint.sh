@@ -1,12 +1,7 @@
 #!/bin/bash
 set -e
 
-for var in "$@"
-do
-	echo "$var"
-done
-
-if [ "$1" = '/bin/sh' ]; then
+if [ "$1" = 'java' ]; then
 	if [ "$DB_PORT_5432_TCP_ADDR" ]; then #check set the address of db server. 
 		sed -ri "s/(^db\.url=.+)localhost(.+)/\1${DB_PORT_5432_TCP_ADDR}\2/" /opt/mapservice/oskari-server/oskari-ext.properties
 	else #if not set we have no database at all and cannot start the server
