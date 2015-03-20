@@ -11,7 +11,7 @@ WORKDIR $HOME
 
 ENV OSKARI_VERSION 1.25.4
 
-# Oskari backend
+# Update
 RUN \
   # Dependencies, which are needed for the build only
   buildDeps="\
@@ -23,8 +23,11 @@ RUN \
   "; \
   # Get dependencies
   apt-get -q -y update && DEBIAN_FRONTEND=noninteractive apt-get -q -y install \
-	  $buildDeps \
-	  $runDeps && \
+	  $buildDeps && \
+	  $runDeps
+
+# Oskari backend
+RUN \
   # Create a folder for the service
   mkdir /opt/mapservice && \
   # Download Oskari backend
@@ -54,7 +57,7 @@ RUN \
   # Remove unneeded packages
   rm -f * && \
   # Clean up unneeded packages when done
-  apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false $buildDeps && \
+  
   # Clean up APT when done
   apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
