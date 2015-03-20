@@ -35,7 +35,8 @@ RUN \
   # Copy binary
   tar -xvf *.tar.gz && \
   # Install backend
-  cd */ && \
+  cd */
+RUN
   mvn clean install && \
   cd - && \
   # Move the extracted folder to the correct location and change name to Oskari as per 
