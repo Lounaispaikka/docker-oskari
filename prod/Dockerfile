@@ -23,7 +23,7 @@ RUN \
   #"; \
   # Get dependencies
   apt-get -q -y update && DEBIAN_FRONTEND=noninteractive apt-get -q -y install \
-	  maven && \
+	  maven \
 	  openjdk-7-jdk
 
 # Oskari backend
