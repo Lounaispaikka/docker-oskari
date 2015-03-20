@@ -2,7 +2,7 @@
 # https://github.com/phusion/baseimage-docker
 # http://oskari.org/documentation/backend/server-embedded-developer
 FROM phusion/baseimage:0.9.16
-MAINTAINER nakanaa
+MAINTAINER ekohalsti
 
 # Set correct environment variables
 ENV REFRESHED_AT 20.02.2015
@@ -11,13 +11,17 @@ WORKDIR $HOME
 
 ENV OSKARI_VERSION 1.25.4
 
+# Oskari backend
 RUN \
+  # Dependencies, which are needed for the build only
   buildDeps="\
     maven \
   "; \
+  # Dependencies needed after build
   runDeps="\
     openjdk-7-jdk \
   "; \
+  # Get dependencies
   apt-get -q -y update && DEBIAN_FRONTEND=noninteractive apt-get -q -y install \
 	  $buildDeps \
 	  $runDeps && \
@@ -37,6 +41,8 @@ RUN \
   mv /opt/mapservice/oskari-server/*.jar /opt/mapservice/oskari-server/oskari.jar && \
   # Remove downloaded files
   rm -rf * 
+
+# Oskari frontend
 RUN \
   # Download Oskari frontend
   curl -LkO https://github.com/nls-oskari/oskari/archive/${OSKARI_VERSION}.tar.gz && \
