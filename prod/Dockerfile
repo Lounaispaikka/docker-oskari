@@ -14,17 +14,17 @@ ENV OSKARI_VERSION 1.25.4
 # Update
 RUN \
   # Dependencies, which are needed for the build only
-  buildDeps="\
-    maven \
-  "; \
+  #buildDeps="\
+  #  maven \
+  #"; \
   # Dependencies needed after build
-  runDeps="\
-    openjdk-7-jdk \
-  "; \
+  #runDeps="\
+  #  openjdk-7-jdk \
+  #"; \
   # Get dependencies
   apt-get -q -y update && DEBIAN_FRONTEND=noninteractive apt-get -q -y install \
-	  $buildDeps && \
-	  $runDeps
+	  maven && \
+	  openjdk-7-jdk
 
 # Oskari backend
 RUN \
