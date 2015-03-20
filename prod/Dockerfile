@@ -33,10 +33,10 @@ RUN \
   # Download Oskari backend
   curl -LkO https://github.com/nls-oskari/oskari-server/archive/${OSKARI_VERSION}.tar.gz && \
   # Copy binary
-  tar -xvf *.tar.gz && \
+  tar -xvf *.tar.gz
   # Install backend
-  cd */
 RUN \
+  cd */ && \
   mvn clean install && \
   cd - && \
   # Move the extracted folder to the correct location and change name to Oskari as per 
