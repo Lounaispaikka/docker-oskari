@@ -36,7 +36,8 @@ RUN \
   mv */standalone-jetty/dist/ /opt/mapservice/oskari-server/ && \
   mv /opt/mapservice/oskari-server/*.jar /opt/mapservice/oskari-server/oskari.jar && \
   # Remove downloaded files
-  rm -rf * && \
+  rm -rf * 
+RUN \
   # Download Oskari frontend
   curl -LkO https://github.com/nls-oskari/oskari/archive/${OSKARI_VERSION}.tar.gz && \
   # Extract
