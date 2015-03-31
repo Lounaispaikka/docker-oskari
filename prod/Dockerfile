@@ -7,6 +7,7 @@ MAINTAINER ekohalsti
 # Set correct environment variables
 ENV REFRESHED_AT 20.02.2015
 ENV HOME /root
+ENV OSKARI_TOOLS /opt/mapservice/oskari-server/public/Oskari/tools
 WORKDIR $HOME
 
 ENV OSKARI_VERSION 1.25.4
@@ -23,8 +24,9 @@ RUN \
   #"; \
   # Get dependencies
   apt-get -q -y update && DEBIAN_FRONTEND=noninteractive apt-get -q -y install \
-	  maven \
-	  openjdk-7-jdk
+    maven \
+    openjdk-7-jdk \
+    graphicsmagick
 
 # Oskari backend
 RUN \
@@ -33,8 +35,9 @@ RUN \
   # Download Oskari backend
   curl -LkO https://github.com/nls-oskari/oskari-server/archive/${OSKARI_VERSION}.tar.gz && \
   # Copy binary
-  tar -xvf *.tar.gz && \
+  tar -xvf *.tar.gz
   # Install backend
+RUN \
   cd */ && \
   mvn clean install && \
   cd - && \
@@ -54,13 +57,23 @@ RUN \
   # Move the extracted folder to the correct location and change name to Oskari as per 
   # documentation http://oskari.org/documentation/backend/server-embedded-developer
   mv */ /opt/mapservice/oskari-server/public/Oskari && \
+  rm -f *
+
+WORKDIR $OSKARI_TOOLS
+
+# Node.js and code compression && clean-up
+RUN \
+  curl -LkO https://deb.nodesource.com/setup && \
+  chmod +x setup && \
+  /bin/sh setup
+  apt-get install -qy nodejs graphicsmagick
+  npm install
+  npm install -g grunt-cli
+  grunt release:/opt/mapservice/oskari-server/public/Oskari/dist/1.25.4
   # Remove unneeded packages
-  rm -f * && \
-  # Clean up unneeded packages when done
-  
+  apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false maven nodejs graphicsmagick && \
   # Clean up APT when done
   apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
 COPY docker-entrypoint.sh /
 
 RUN chmod +x /docker-entrypoint.sh
