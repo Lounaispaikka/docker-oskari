@@ -14,19 +14,10 @@ ENV OSKARI_VERSION 1.25.4
 
 # Update
 RUN \
-  # Dependencies, which are needed for the build only
-  #buildDeps="\
-  #  maven \
-  #"; \
-  # Dependencies needed after build
-  #runDeps="\
-  #  openjdk-7-jdk \
-  #"; \
   # Get dependencies
   apt-get -q -y update && DEBIAN_FRONTEND=noninteractive apt-get -q -y install \
     maven \
-    openjdk-7-jdk \
-    graphicsmagick
+    openjdk-7-jdk
 
 # Oskari backend
 RUN \
@@ -69,7 +60,7 @@ RUN \
   apt-get install -qy nodejs graphicsmagick && \
   npm install && \
   npm install -g grunt-cli && \
-  grunt release:/opt/mapservice/oskari-server/public/Oskari/dist/1.25.4 && \
+  grunt release:versio:../applications/paikkatietoikkuna.fi/full-map/minifierAppSetup.json && \
   rm setup && \
   # Remove unneeded packages 
   apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false maven nodejs graphicsmagick && \
@@ -79,7 +70,7 @@ RUN \
 
 COPY docker-entrypoint.sh /
 
-RUN chmod +x /docker-entrypoint.sh /
+RUN chmod +x /docker-entrypoint.sh
 
 WORKDIR /opt/mapservice/oskari-server/ 
 
