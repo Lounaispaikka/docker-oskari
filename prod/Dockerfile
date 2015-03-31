@@ -65,18 +65,21 @@ WORKDIR $OSKARI_TOOLS
 RUN \
   curl -LkO https://deb.nodesource.com/setup && \
   chmod +x setup && \
-  /bin/sh setup
-  apt-get install -qy nodejs graphicsmagick
-  npm install
-  npm install -g grunt-cli
-  grunt release:/opt/mapservice/oskari-server/public/Oskari/dist/1.25.4
-  # Remove unneeded packages
+  /bin/sh setup && \
+  apt-get install -qy nodejs graphicsmagick && \
+  npm install && \
+  npm install -g grunt-cli && \
+  grunt release:/opt/mapservice/oskari-server/public/Oskari/dist/1.25.4 && \
+  rm setup && \
+  # Remove unneeded packages 
   apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false maven nodejs graphicsmagick && \
   # Clean up APT when done
-  apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+  apt-get clean && \
+  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
+
 COPY docker-entrypoint.sh /
 
-RUN chmod +x /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh /
 
 WORKDIR /opt/mapservice/oskari-server/ 
 
