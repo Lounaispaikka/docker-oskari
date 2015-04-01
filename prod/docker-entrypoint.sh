@@ -30,7 +30,13 @@ if [ "$1" = 'java' ]; then
 	else 
 		#if password is not set assume user 'postgres' and set it to empty
 		sed -ri "s/(^db\.password=).+/\1/" /opt/mapservice/oskari-server/oskari-ext.properties		
-	fi	
+	fi
+    
+    if [ "$VERSION" ]; then #setting version minifies the oskari instance & sets development to false
+        #set development to false
+        sed -i "development=false" /opt/mapservice/oskari-server/oskari-ext.properties
+        #set version
+        sed -i "oskari.client.version=dist/1.25"
 fi
 
 exec "$@"

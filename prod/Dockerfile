@@ -60,10 +60,10 @@ RUN \
   apt-get install -qy nodejs graphicsmagick && \
   npm install && \
   npm install -g grunt-cli && \
-  grunt release:versio:../applications/paikkatietoikkuna.fi/full-map/minifierAppSetup.json && \
+  grunt release:${OSKARI_VERSION}:../applications/paikkatietoikkuna.fi/full-map/minifierAppSetup.json && \
   rm setup && \
   # Remove unneeded packages 
-  apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false maven nodejs graphicsmagick && \
+  apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o             APT::AutoRemove::SuggestsImportant=false maven nodejs graphicsmagick && \
   # Clean up APT when done
   apt-get clean && \
   rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
