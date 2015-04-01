@@ -37,6 +37,7 @@ if [ "$1" = 'java' ]; then
         sed -i "development=false" /opt/mapservice/oskari-server/oskari-ext.properties
         #set version
         sed -i "oskari.client.version=dist/${VERSION}"
+    fi
 fi
 
 exec "$@"
