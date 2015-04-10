@@ -30,7 +30,7 @@ RUN \
   # Install backend
 RUN \
   cd */ && \
-  mvn clean install && \
+  mvn -q clean install && \
   cd - && \
   # Move the extracted folder to the correct location and change name to Oskari as per 
   # documentation http://oskari.org/documentation/backend/server-embedded-developer
@@ -58,8 +58,8 @@ RUN \
   chmod +x setup && \
   /bin/sh setup && \
   apt-get install -qy nodejs graphicsmagick && \
-  npm install && \
-  npm install -g grunt-cli && \
+  npm install -q && \
+  npm install -g -q grunt-cli && \
   grunt release:${OSKARI_VERSION}:../applications/paikkatietoikkuna.fi/full-map/minifierAppSetup.json && \
   rm setup && \
   # Remove unneeded packages 
