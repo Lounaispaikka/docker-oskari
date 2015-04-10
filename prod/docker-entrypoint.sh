@@ -36,7 +36,7 @@ if [ "$1" = 'java' ]; then
         #set development to false
         echo "development=false" >> /opt/mapservice/oskari-server/oskari-ext.properties &&
         #set version
-        echo "oskari.client.version=dist/${VERSION}/fullmap" >> /opt/mapservice/oskari-server/oskari-ext.properties
+        echo "oskari.client.version=dist/${VERSION}/full-map" >> /opt/mapservice/oskari-server/oskari-ext.properties
     fi
 fi
 
