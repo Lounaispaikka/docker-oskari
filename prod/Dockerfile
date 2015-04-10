@@ -10,14 +10,14 @@ ENV HOME /root
 ENV OSKARI_TOOLS /opt/mapservice/oskari-server/public/Oskari/tools
 WORKDIR $HOME
 
-ENV OSKARI_VERSION 1.25.4
+ENV OSKARI_VERSION 1.27.3
 
 # Update
 RUN \
   # Get dependencies
-  apt-get -q -y update && DEBIAN_FRONTEND=noninteractive apt-get -q -y install \
+  apt-get -q -y update > /dev/null && DEBIAN_FRONTEND=noninteractive apt-get -q -y install \
     maven \
-    openjdk-7-jdk
+    openjdk-7-jdk > /dev/null
 
 # Oskari backend
 RUN \
@@ -61,8 +61,8 @@ RUN \
   npm install -q && \
   npm install -g -q grunt-cli && \
   grunt release:${OSKARI_VERSION}:../applications/paikkatietoikkuna.fi/full-map/minifierAppSetup.json && \
-  mkdir /opt/mapservice/oskari-server/public/Oskari/dist/1.25.4/full-map/servlet
-  mv /opt/mapservice/oskari-server/public/Oskari/dist/1.25.4/full-map/* /opt/mapservice/oskari-server/public/Oskari/dist/1.25.4/full-map/servlet
+  mkdir /opt/mapservice/oskari-server/public/Oskari/dist/1.25.4/full-map/servlet && \
+  mv /opt/mapservice/oskari-server/public/Oskari/dist/1.25.4/full-map/* /opt/mapservice/oskari-server/public/Oskari/dist/1.25.4/full-map/servlet && \
   rm setup && \
   # Remove unneeded packages 
   apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false maven nodejs graphicsmagick && \
