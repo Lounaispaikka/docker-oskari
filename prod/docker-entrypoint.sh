@@ -34,9 +34,9 @@ if [ "$1" = 'java' ]; then
     
     if [ "$VERSION" ]; then #setting version minifies the oskari instance & sets development to false
         #set development to false
-        sed -i "development=false" /opt/mapservice/oskari-server/oskari-ext.properties
+        echo "development=false" >> /opt/mapservice/oskari-server/oskari-ext.properties &&
         #set version
-        sed -i "oskari.client.version=dist/${VERSION}"
+        echo "oskari.client.version=dist/${VERSION}/fullmap" >> /opt/mapservice/oskari-server/oskari-ext.properties
     fi
 fi
 

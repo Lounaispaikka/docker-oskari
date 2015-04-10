@@ -26,7 +26,7 @@ RUN \
   # Download Oskari backend
   curl -LkO https://github.com/nls-oskari/oskari-server/archive/${OSKARI_VERSION}.tar.gz && \
   # Copy binary
-  tar -xvf *.tar.gz
+  tar -xf *.tar.gz
   # Install backend
 RUN \
   cd */ && \
@@ -44,7 +44,7 @@ RUN \
   # Download Oskari frontend
   curl -LkO https://github.com/nls-oskari/oskari/archive/${OSKARI_VERSION}.tar.gz && \
   # Extract
-  tar -xvf *.tar.gz && \
+  tar -xf *.tar.gz && \
   # Move the extracted folder to the correct location and change name to Oskari as per 
   # documentation http://oskari.org/documentation/backend/server-embedded-developer
   mv */ /opt/mapservice/oskari-server/public/Oskari && \
@@ -63,7 +63,7 @@ RUN \
   grunt release:${OSKARI_VERSION}:../applications/paikkatietoikkuna.fi/full-map/minifierAppSetup.json && \
   rm setup && \
   # Remove unneeded packages 
-  apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o             APT::AutoRemove::SuggestsImportant=false maven nodejs graphicsmagick && \
+  apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false maven nodejs graphicsmagick && \
   # Clean up APT when done
   apt-get clean && \
   rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
