@@ -52,7 +52,7 @@ RUN \
 
 WORKDIR $OSKARI_TOOLS
 
-# Node.js and code compression && clean-up
+# Node.js and code compression && clean-up of unneeded packages
 RUN \
   curl -LkO https://deb.nodesource.com/setup && \
   chmod +x setup && \
@@ -61,8 +61,9 @@ RUN \
   npm install -q && \
   npm install -g -q grunt-cli && \
   grunt release:${OSKARI_VERSION}:../applications/paikkatietoikkuna.fi/full-map/minifierAppSetup.json && \
-  mkdir /opt/mapservice/oskari-server/public/Oskari/dist/${OSKARI_VERSION}/full-map/servlet && \
-  mv /opt/mapservice/oskari-server/public/Oskari/dist/${OSKARI_VERSION}/full-map/* /opt/mapservice/oskari-server/public/Oskari/dist/1.25.4/full-map/servlet && \
+  mkdir /opt/mapservice/oskari-server/public/Oskari/dist/${OSKARI_VERSION}/servlet && \
+  mv /opt/mapservice/oskari-server/public/Oskari/dist/${OSKARI_VERSION}/full-map/* /opt/mapservice/oskari-server/public/Oskari/dist/${OSKARI_VERSION}/servlet && \
+  mv /opt/mapservice/oskari-server/public/Oskari/dist/${OSKARI_VERSION}/servlet/ /opt/mapservice/oskari-server/public/Oskari/dist/${OSKARI_VERSION}/full-map/ && \
   rm setup && \
   # Remove unneeded packages 
   apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false maven nodejs graphicsmagick && \
