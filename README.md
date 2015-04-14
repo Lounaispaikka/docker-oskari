@@ -13,4 +13,4 @@ $PASSWORD password of the database user
 $VERSION oskari version this must be 
 
 USAGE
-docker run -e "DB_PORT_5432_TCP_ADDR=<db>" -e "PASSWORD=<passwd>" -e "USER=<db_user>" -e "VERSION=<version>" -d --name="oskari" -p 80:2373 ekohalsti/docker-oskari-1.25
+docker run -e "DB_PORT_5432_TCP_ADDR=<db>" -e "PASSWORD=<passwd>" -e "USER=<db_user>" -e "VERSION=<version>" -d --name="oskari" -p 80:2373 ekohalsti/docker-oskari
