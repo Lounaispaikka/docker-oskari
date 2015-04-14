@@ -38,6 +38,7 @@ if [ "$1" = 'java' ]; then
         #set version
         echo "oskari.client.version=dist/${VERSION}/full-map" >> /opt/mapservice/oskari-server/oskari-ext.properties
     fi
+    echo "oskari.locales=fi_FI,en_EN,sv_SE" >> /opt/mapservice/oskari-server/oskari-ext.properties
 fi
 
 exec "$@"
